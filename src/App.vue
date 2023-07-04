@@ -7,7 +7,7 @@
         @changeSingle="changeSingle"
         @deleteSingle="deleteSingle"
       />
-      <Footer :todoList="todoList" @allComplete="allComplete" />
+      <Footer :todoList="todoList" @allComplete="allComplete" @deleteAllComplete="deleteAllComplete"/>
     </div>
   </div>
 </template>
@@ -60,6 +60,10 @@ const addTodo = (thing: string) => {
 const allComplete = (type: boolean) => {
   todoList.value.forEach((item) => (item.done = type));
 };
+// deleteAllComplete删除已完成
+const deleteAllComplete = () => {
+  todoList.value =  todoList.value.filter(item=>!item.done)
+}
 </script>
 
 <style lang="scss">

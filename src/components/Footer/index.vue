@@ -6,7 +6,7 @@
     <span>
       <span>已完成{{ completeNum }}</span> / 全部{{ todoList.length }}
     </span>
-    <button class="btn btn-danger">清除已完成任务</button>
+    <button class="btn btn-danger" @click="emits('deleteAllComplete')">清除已完成任务</button>
   </div>
 </template>
 
@@ -26,7 +26,7 @@ import { computed } from "vue";
 // 获取数据
 const props = defineProps<{ todoList: todoListType }>();
 // 获取方法
-const emits = defineEmits<{ (event: "allComplete", type: boolean): void }>();
+const emits = defineEmits<{ (event: "allComplete", type: boolean): void;(event: "deleteAllComplete"): void }>();
 // 通过计算属性获取已完成数量
 const completeNum = computed(() => {
   return props.todoList.reduce((p, c) => (c.done ? p + 1 : p), 0);
