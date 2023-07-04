@@ -9,6 +9,7 @@
       />
       <Footer :todoList="todoList"
       @allComplete="allComplete"
+      @deleteAllComplete="deleteAllComplete"
       />
     </div>
   </div>
@@ -62,6 +63,11 @@ const addTodo = (thing: string) => {
 const allComplete = (type:boolean) => {
   // 全选框为true则每一个都为true
   todoList.value.forEach(item => item.done=type)
+}
+
+// deleteAllComplete删除已完成
+const deleteAllComplete = () => {
+  todoList.value = todoList.value.filter(item=>!item.done)
 }
 </script>
 
