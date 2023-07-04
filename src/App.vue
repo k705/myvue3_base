@@ -1,7 +1,7 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <Header />
+      <Header @addTodo="addTodo"/>
       <List
         :todoList="todoList"
         @changeSingle="changeSingle"
@@ -48,6 +48,12 @@ const changeSingle = (index: number) => {
 //定义list组件删除单个 自定义事件的回调函数
 const deleteSingle = (index: number) => {
   todoList.value.splice(index, 1);
+};
+
+// 定义Header组件input框输入
+const addTodo = (thing: string) => {
+  const newTodo = { id: nanoid(), thing, done: false };
+  todoList.value.unshift(newTodo);
 };
 </script>
 
