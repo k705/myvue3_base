@@ -7,7 +7,8 @@
         @changeSingle="changeSingle"
         @deleteSingle="deleteSingle"
       />
-      <Footer  :todoList="todoList"/>
+      <Footer  :todoList="todoList"
+      @allComplete="allComplete"/>
     </div>
   </div>
 </template>
@@ -54,7 +55,11 @@ const deleteSingle = (index: number) => {
 const addTodo = (thing: string) => {
   const newTodo = {id: nanoid(), thing, done: false}
   todoList.value.unshift(newTodo)
-  
+}
+
+// 全选框逻辑:数据中每个都为done则返回true
+const allComplete = (type: boolean) => {
+  todoList.value.forEach((item)=>item.done=type)
 }
 </script>
 
