@@ -1,7 +1,7 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <Header />
+      <Header @addTodo="addTodo"/>
       <List
         :todoList="todoList"
         @changeSingle="changeSingle"
@@ -49,6 +49,12 @@ const changeSingle = (index: number) => {
 const deleteSingle = (index: number) => {
   todoList.value.splice(index, 1);
 };
+
+// 定义Header组价input框提交事件
+const addTodo = (thing: string) => {
+  const newTodo = { id: nanoid(), thing, done: false}
+  todoList.value.unshift(newTodo)
+}
 </script>
 
 <style lang="scss">

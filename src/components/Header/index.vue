@@ -1,6 +1,6 @@
 <template>
   <div class="todo-header">
-    <input type="text" placeholder="请输入你的任务名称，按回车键确认" />
+    <input type="text" placeholder="请输入你的任务名称，按回车键确认" @keyup.enter="publish"/>
   </div>
 </template>
 
@@ -12,7 +12,16 @@ export default defineComponent({
 });
 </script>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// 引入input新增事件
+const emits = defineEmits<{ (event: "addTodo", thing: string): void }>()
+
+// 定义input框新增
+const publish = (e: Event) => {
+  const thing = (e.target as HTMLInputElement).value
+  emits("addTodo",thing)
+}
+</script>
 
 <style scoped lang="scss">
 /*header*/
