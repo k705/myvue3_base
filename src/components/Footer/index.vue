@@ -3,7 +3,7 @@
     <label>
       <input type="checkbox" />
     </label>
-    <span> <span>已完成0</span> / 全部2 </span>
+    <span> <span>已完成{{completeNum}}</span> / 全部{{todoList.length}} </span>
     <button class="btn btn-danger">清除已完成任务</button>
   </div>
 </template>
@@ -16,7 +16,18 @@ export default defineComponent({
 });
 </script>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// 获取数据类型
+import { todoListType } from "../../App.vue"
+// 获取计算属性
+import { computed } from "vue"
+// 获取数据
+const props = defineProps<{todoList: todoListType}>()
+// 通过计算属性获取已完成数量
+const completeNum = computed(() => {
+  return props.todoList.reduce((p,c)=>c.done?p+1:p,0)
+})
+</script>
 
 <style scoped lang="scss">
 /*footer*/

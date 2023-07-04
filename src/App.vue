@@ -7,7 +7,7 @@
         @changeSingle="changeSingle"
         @deleteSingle="deleteSingle"
       />
-      <Footer />
+      <Footer :todoList="todoList"/>
     </div>
   </div>
 </template>
@@ -55,6 +55,8 @@ const addTodo = (thing: string) => {
   const newTodo = { id: nanoid(), thing, done: false };
   todoList.value.unshift(newTodo);
 };
+
+// 
 </script>
 
 <style lang="scss">
