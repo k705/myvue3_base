@@ -8,7 +8,8 @@
         @deleteSingle="deleteSingle"
       />
       <Footer  :todoList="todoList"
-      @allComplete="allComplete"/>
+      @allComplete="allComplete"
+      @deleteAllComplete="deleteAllComplete"/>
     </div>
   </div>
 </template>
@@ -60,6 +61,11 @@ const addTodo = (thing: string) => {
 // 全选框逻辑:数据中每个都为done则返回true
 const allComplete = (type: boolean) => {
   todoList.value.forEach((item)=>item.done=type)
+}
+
+// 清除已完成任务
+const deleteAllComplete = () => {
+  todoList.value = todoList.value.filter(item=>!item.done)
 }
 </script>
 
