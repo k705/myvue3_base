@@ -7,7 +7,7 @@
         @changeSingle="changeSingle"
         @deleteSingle="deleteSingle"
       />
-      <Footer />
+      <Footer :todoList="todoList"/>
     </div>
   </div>
 </template>
