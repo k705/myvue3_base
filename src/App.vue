@@ -1,30 +1,98 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="todo-container">
+    <div class="todo-wrap">
+      <Header />
+      <List
+        :todoList="todoList"
+        @changeSingle="changeSingle"
+        @deleteSingle="deleteSingle"
+      />
+      <Footer />
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "App",
+});
+</script>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import { nanoid } from "nanoid";
+import Header from "./components/Header/index.vue";
+import Footer from "./components/Footer/index.vue";
+import List from "./components/List/index.vue";
+// 定义todo的数据类型
+export interface todoType {
+  id: string;
+  thing: string;
+  done: boolean;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+export type todoListType = todoType[];
+
+// 定义todo数据
+const todoList = ref<todoListType>([
+  { id: nanoid(), thing: "study", done: false },
+  { id: nanoid(), thing: "sing", done: false },
+  { id: nanoid(), thing: "eat", done: false },
+]);
+
+// 自定义事件定义list组件修改单个状态
+const changeSingle = (index: number) => {
+  todoList.value[index].done = !todoList.value[index].done;
+};
+//定义list组件删除单个 自定义事件的回调函数
+const deleteSingle = (index: number) => {
+  todoList.value.splice(index, 1);
+};
+</script>
+
+<style lang="scss">
+/*base*/
+body {
+  background: #fff;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.btn {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #da4f49;
+  border: 1px solid #bd362f;
+}
+
+.btn-danger:hover {
+  color: #fff;
+  background-color: #bd362f;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.todo-container {
+  width: 600px;
+  margin: 0 auto;
+}
+.todo-container .todo-wrap {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 </style>
