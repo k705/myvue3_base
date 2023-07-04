@@ -1,13 +1,13 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <Header @addTodo="addTodo"/>
+      <Header @addTodo="addTodo" />
       <List
         :todoList="todoList"
         @changeSingle="changeSingle"
         @deleteSingle="deleteSingle"
       />
-      <Footer :todoList="todoList"/>
+      <Footer :todoList="todoList" @allComplete="allComplete" />
     </div>
   </div>
 </template>
@@ -56,7 +56,10 @@ const addTodo = (thing: string) => {
   todoList.value.unshift(newTodo);
 };
 
-// 
+// 全选按钮
+const allComplete = (type: boolean) => {
+  todoList.value.forEach((item) => (item.done = type));
+};
 </script>
 
 <style lang="scss">
