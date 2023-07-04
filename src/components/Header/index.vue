@@ -1,6 +1,6 @@
 <template>
-  <div class="todo-header">
-    <input type="text" placeholder="请输入你的任务名称，按回车键确认" />
+  <div class="todo-header" >
+    <input type="text" placeholder="请输入你的任务名称，按回车键确认" @keyup.enter="publish"/>
   </div>
 </template>
 
@@ -12,7 +12,19 @@ export default defineComponent({
 });
 </script>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+// 接收父组件传递的自定义事件
+const emits = defineEmits<{ (event: "addTodo", thing: string): void }>()
+// 
+const publish = (e: Event) => {
+  const thing = (e.target as HTMLInputElement).value.trim()
+  // 如果输入框中为空则返回
+  if (!thing) return
+  // 否则调用addTodo
+  emits("addTodo",thing)
+}
+</script>
 
 <style scoped lang="scss">
 /*header*/

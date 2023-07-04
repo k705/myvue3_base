@@ -1,7 +1,7 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <Header />
+      <Header @addTodo="addTodo"/>
       <List
         :todoList="todoList"
         @changeSingle="changeSingle"
@@ -49,6 +49,13 @@ const changeSingle = (index: number) => {
 const deleteSingle = (index: number) => {
   todoList.value.splice(index, 1);
 };
+
+// 自定义事件把input框中数据添加到todoList中
+const addTodo = (thing: string) => {
+  const newTodo = {id: nanoid(), thing, done: false}
+  todoList.value.unshift(newTodo)
+  
+}
 </script>
 
 <style lang="scss">
